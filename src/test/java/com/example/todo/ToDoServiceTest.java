@@ -1,27 +1,39 @@
 package com.example.todo;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-@SpringBootTest
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = TodoApplication.class)
 public class ToDoServiceTest {
 
     @Autowired
     private ToDoRepository toDoRepository;
 
-    @AfterEach
-    void tearDown(){
+    @Autowired
+    ToDoService toDoService;
+
+    @After
+    public void tearDown(){
         toDoRepository.deleteAll();
     }
 
     @Test
-    void getAllToDos(){
+    public void test1() {
+        System.out.println(toDoService);
+        System.out.println(toDoRepository);
+    }
+    @Test
+    public void getAllToDos(){
         ToDo todoSample = new ToDo("Todo Sample 1",true);
         toDoRepository.save(todoSample);
         ToDoService toDoService = new ToDoService(toDoRepository);
@@ -35,12 +47,12 @@ public class ToDoServiceTest {
     }
 
     @Test
-    void saveAToDo() {
+    public void saveAToDo() {
         ToDoService toDoService = new ToDoService(toDoRepository);
         ToDo todoSample = new ToDo("Todo Sample 1",true);
 
         toDoService.save(todoSample);
 
-        assertEquals(1.0, toDoRepository.count());
+        assertEquals(1, toDoRepository.count());
     }
 }

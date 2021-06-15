@@ -1,13 +1,13 @@
 package com.example.todo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -23,9 +23,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
+
 @WebMvcTest
-class ToDoControllerTest {
+@RunWith(SpringRunner.class)
+public class ToDoControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -35,7 +36,7 @@ class ToDoControllerTest {
 
 
     @Test
-    void getAllToDos() throws Exception {
+    public void getAllToDos() throws Exception {
         List<ToDo> toDoList = new ArrayList<ToDo>();
         toDoList.add(new ToDo(1L,"Eat thrice",true));
         toDoList.add(new ToDo(2L,"Seep Twice",true));
@@ -47,7 +48,7 @@ class ToDoControllerTest {
     }
 
     @Test
-    void successfullyCreateAToDo() throws Exception {
+    public void successfullyCreateAToDo() throws Exception {
         ToDo eatToDo = new ToDo(1L, "Eat thrice", true);
         when(toDoService.save(any(ToDo.class))).thenReturn(eatToDo);
         ObjectMapper objectMapper = new ObjectMapper();
