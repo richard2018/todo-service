@@ -31,3 +31,5 @@ gradlew
 
 ### VS Code ###
 .vscode/
+
+target/
